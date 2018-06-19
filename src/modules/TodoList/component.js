@@ -1,4 +1,5 @@
 import React, { Fragment } from 'react';
+import { func, array } from 'prop-types';
 
 import { Todo } from '../Todo';
 
@@ -18,5 +19,10 @@ export const Component = ({todoList, handleClickDelete}) => {
     </Fragment>
   );
 }
+
+Component.propTypes = {
+  todoList: array.isRequired,
+  handleClickDelete: func.isRequired
+};
 
 Component.displayName = 'TodoList';
