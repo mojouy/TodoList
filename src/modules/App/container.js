@@ -1,7 +1,9 @@
-import React, { Component } from 'react';
+import React, { Component, Fragment } from 'react';
 import { uniqueId } from 'lodash';
 
-import { Todo } from './Todo';
+import { Todo } from '../Todo';
+import { TodoList } from '../TodoList';
+import { TodoInput } from '../TodoInput';
 
 export class App extends Component {
 
@@ -26,7 +28,7 @@ export class App extends Component {
   };
 
   handleClickDelete = index => {
-    console.log(`Deleting todo number ${index}`);
+    // console.log(`Deleting todo number ${index}`);
     const { todos } = this.state;
     this.setState({ todos: [
       ...todos.slice(0, index),
@@ -41,21 +43,18 @@ export class App extends Component {
     const { todo, todos } = this.state;
     return (
       <div className="todo-list">
-        <h1>todos</h1>
-        <p><span id="counter">1</span> remaining</p>
-        <div>
-          {
-            todos.length
-              ? todos.map((todo, index) => <Todo key={todo.id} onClickDelete={() => this.handleClickDelete(index)} text={todo.text} />)
-              : 'You\'re all done 🌴'
-          }
-        </div>
-        <div className="todo-input">
-          <input onChange={this.handleChange} placeholder="..." type="text" value={todo}/>
-          <button onClick={this.handleClickAdd}>Add</button>
-        </div>
+        <TodoList
+          todoList={todos}
+          handleClickDelete={this.handleClickDelete}
+        />
+        <TodoInput
+          handleChange={this.handleChange}
+          handleClickAdd={this.handleClickAdd}
+          inputValue={todo}
+        />
       </div>
     )
   }
-
 }
+
+Component.displayName = 'App';
